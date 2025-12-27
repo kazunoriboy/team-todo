@@ -17,3 +17,4 @@ echo ""
 echo "=== Starting air ==="
 exec air -c .air.toml
 
+

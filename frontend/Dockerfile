@@ -16,3 +16,4 @@ COPY . .
 # Next.jsの開発サーバーを起動
 CMD ["pnpm", "dev"]
 
+
