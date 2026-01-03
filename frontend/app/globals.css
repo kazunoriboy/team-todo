@@ -1,22 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #0f172a;
-  --foreground: #e2e8f0;
+@layer base {
+  :root {
+    --background: #1e1f21;
+    --background-secondary: #252628;
+    --background-tertiary: #2e2f31;
+    --foreground: #f5f4f3;
+    --foreground-secondary: #a2a0a2;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply bg-background text-foreground;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background-secondary;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-border-light;
+  }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: "Geist", system-ui, sans-serif;
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-white hover:bg-accent-hover focus:ring-accent;
+  }
+
+  .btn-secondary {
+    @apply btn bg-background-tertiary text-foreground hover:bg-background-hover border border-border focus:ring-border;
+  }
+
+  .btn-ghost {
+    @apply btn text-foreground-secondary hover:text-foreground hover:bg-background-hover focus:ring-border;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-border bg-background-secondary px-4 py-2.5 text-foreground placeholder-foreground-tertiary transition-colors duration-200 focus:border-border-focus focus:outline-none focus:ring-1 focus:ring-border-focus;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-foreground-secondary mb-1.5;
+  }
+
+  .card {
+    @apply bg-background-secondary rounded-xl border border-border p-6 shadow-card;
+  }
+
+  .link {
+    @apply text-accent hover:text-accent-hover transition-colors duration-200;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  .animate-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
 }
-
-
