@@ -31,9 +31,19 @@ services:
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_NAME: team_todo
+      JWT_SECRET: your-super-secret-jwt-key-change-in-production
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      # SMTP settings for development (Mailpit)
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
+      EMAIL_FROM: "Team Todo <noreply@team-todo.local>"
+      APP_URL: http://localhost:3000
+      FRONTEND_URL: http://localhost:3000
     depends_on:
       db:
         condition: service_healthy
+      mailpit:
+        condition: service_started
 
   frontend:
     build:
@@ -50,6 +60,17 @@ services:
       - NEXT_PUBLIC_API_URL=http://localhost:8080
     depends_on:
       - backend
+
+  # Development mail server - captures all emails for testing
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: team-todo-mailpit
+    ports:
+      - "8025:8025"  # Web UI
+      - "1025:1025"  # SMTP
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
 
 volumes:
   db-data:

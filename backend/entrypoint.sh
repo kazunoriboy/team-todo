@@ -10,6 +10,10 @@ echo "=== Running go mod tidy ==="
 go mod tidy -v
 echo ""
 
+echo "=== Generating ent code ==="
+go generate ./ent
+echo ""
+
 echo "=== go.sum contents ==="
 cat go.sum | head -20
 echo ""
